@@ -1,0 +1,40 @@
+#made for side.lv network by Zurius
+
+logout-command:
+  enabled: true
+  time: 30
+  broadcast-times:
+    - "1"
+    - "2"
+    - "3"
+    - "4"
+    - "5"
+    - "10"
+    - "15"
+    - "20"
+    - "25"
+
+logger:
+  time-till-disappear: 30
+  dont-lose-xp:
+    enabled: true
+    permission: "no.xp.lose"
+  worlds:
+    enabled: true
+    list:
+      - "warzone"
+      - "kekworld"
+
+messages:
+  logger-name: "&c(Logger) &f%player%"
+  unknown-command: "&4[!] &cUnknown command. Type \"&4/help&c\" for help."
+  no-permission: "&cYou do not have permissions to use this command!"
+  death-message: "&c(Logger) %player% &7was slain by &a%killer%"
+  must-be-player: "&4[!] &cOnly players can execute this command."
+  remaining-time: "&fYou will be logged out in"
+  kick-message: "&aSuccessfully logged out."
+  title-logout-canceled: "&4Logout Canceled"
+  title-logout-started: "&aLogout Started"
+  chat-logout-canceled: "&c&lLogger &8» &4Logout Canceled"
+  chat-logout-started: "&c&lLogger &8» &aLogout started."
+  reloaded: "&4[SVC] &7Plugin successfully reloaded."

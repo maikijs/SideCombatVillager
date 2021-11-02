@@ -1,0 +1,15 @@
+name: SideCombatVillager
+main: lv.side.network.CombatVillager
+author: Zurius
+version: 1.0
+description: Combat Villager plugin made for side.lv network
+commands:
+  scv:
+    aliases:
+      - sidecombatvillager
+      - combatvillager
+    description: The main command of the plugin
+  logout:
+    aliases:
+      - lo
+    description: Safe logout command
