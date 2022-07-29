@@ -4,6 +4,7 @@ import lv.side.network.CombatVillager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,6 +16,14 @@ public class ColorUtils {
 
     public ColorUtils(CombatVillager plugin) {
         this.plugin = plugin;
+    }
+
+    public static void playSound(Sound sound, float volume, float pitch, Player player) {
+        player.playSound(player.getLocation(), sound, volume, pitch);
+    }
+
+    public static void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut, Player player) {
+        player.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
     }
 
     public static List<String> color(List<String> input) {

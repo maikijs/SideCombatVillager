@@ -25,7 +25,7 @@ public class PlayerJoinListener implements Listener {
         permission = plugin.getConfig().getString("logger.dont-lose-xp.permission");
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled=true)
     public void onPlayerJoin(PlayerJoinEvent e) {
         if (e.getPlayer().hasPermission("SideAdmin.logout")) {
             return;
@@ -50,6 +50,7 @@ public class PlayerJoinListener implements Listener {
             return;
         }
         e.getPlayer().teleport(v.getLocation());
+        e.getPlayer().setHealth(v.getHealth());
         VillagerManager.removeVillager(v);
         v.remove();
         PlayerLeaveListener.name.remove(e.getPlayer().getUniqueId());

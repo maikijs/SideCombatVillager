@@ -1,7 +1,7 @@
 #made for side.lv network by Zurius
 
 logout-command:
-  enabled: true
+  enabled: false
   time: 30
   broadcast-times:
     - "1"
@@ -16,25 +16,27 @@ logout-command:
 
 logger:
   time-till-disappear: 30
+  while-in-combat: false
   dont-lose-xp:
     enabled: true
     permission: "no.xp.lose"
   worlds:
     enabled: true
     list:
-      - "warzone"
-      - "kekworld"
+      - "underground"
 
 messages:
-  logger-name: "&c(Logger) &f%player%"
-  unknown-command: "&4[!] &cUnknown command. Type \"&4/help&c\" for help."
+  logger-name: "&4(Logger) &f%player%"
+  unknown-command: "&8» &7Unknown command. Type \"&f/help&7\" for help."
   no-permission: "&cYou do not have permissions to use this command!"
-  death-message: "&c(Logger) %player% &7was slain by &a%killer%"
+  death-message: "&f(Logger) %player% &fwas slain by &f%killer%"
+  death-message-null: "&f(Logger) %player% &fdied"
   must-be-player: "&4[!] &cOnly players can execute this command."
-  remaining-time: "&fYou will be logged out in"
-  kick-message: "&aSuccessfully logged out."
+  remaining-time: "&7You will be logged out in"
+  kick-message: "&f&lSuccessfully logged out."
   title-logout-canceled: "&4Logout Canceled"
   title-logout-started: "&aLogout Started"
-  chat-logout-canceled: "&c&lLogger &8» &4Logout Canceled"
-  chat-logout-started: "&c&lLogger &8» &aLogout started."
+  chat-logout-canceled: "&4&lLogger &8» &4Logout Canceled"
+  chat-logout-started: "&4&lLogger &8» &aLogout started."
+  not-in-this-world: "&4&lLogger &8» &7Logout command is not available in this world!"
   reloaded: "&4[SVC] &7Plugin successfully reloaded."

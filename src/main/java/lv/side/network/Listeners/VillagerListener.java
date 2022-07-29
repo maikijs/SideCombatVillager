@@ -42,7 +42,7 @@ public class VillagerListener implements Listener {
 
     @EventHandler
     public void onVillagerInteract(PlayerInteractEntityEvent e) {
-        if(!e.getRightClicked().getType().equals(EntityType.VILLAGER)) return;
+        if (!e.getRightClicked().getType().equals(EntityType.VILLAGER)) return;
         for (UUID asd : VillagerManager.getVillagers().values()) {
             if (e.getRightClicked().equals(VillagerManager.getVillagerByUUID(asd))) {
                 e.setCancelled(true);
@@ -52,14 +52,10 @@ public class VillagerListener implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
-        if (e.getEntity() instanceof Villager) {
-            final Entity m = e.getEntity();
-            CombatVillager.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(CombatVillager.getInstance(), new Runnable() {
-                public void run() {
-                    m.setVelocity(new Vector(0, 0, 0));
-                }
-            }, 1L);
-        }
+        if (!(e.getEntity() instanceof Villager)) return;
+        final Entity m = e.getEntity();
+        CombatVillager.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(CombatVillager.getInstance(), () -> m.setVelocity(new Vector(0, 0, 0)), 1L);
+
     }
 
 }

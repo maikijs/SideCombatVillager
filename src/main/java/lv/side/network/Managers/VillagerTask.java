@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
-public class VillagerTask extends BukkitRunnable {
+public class VillagerTask implements Runnable {
     private final UUID uuid;
 
     public VillagerTask(UUID uuid) {

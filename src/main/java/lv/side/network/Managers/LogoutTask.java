@@ -1,12 +1,12 @@
 package lv.side.network.Managers;
 
-import com.connorlinfoot.titleapi.TitleAPI;
 import lv.side.network.CombatVillager;
 import lv.side.network.Commands.LogoutCMD;
 import lv.side.network.Utils.ColorUtils;
 import lv.side.network.Utils.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -44,22 +44,20 @@ public final class LogoutTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        // Cancel the task if player is no longer online
         Player player = LogoutCMD.logoutplayers.get(playerId);;
         if (player == null) {
             cancel();
             return;
         }
 
-        // Cancel the task if player has moved
         if (hasMoved(player)) {
             player.sendMessage(Messages.get("chat-logout-canceled"));
-            TitleAPI.sendTitle(player, "", Messages.get("title-logout-canceled"), 0, 25, 0);
+            ColorUtils.sendTitle("", Messages.get("title-logout-canceled"), 0, 25, 0, player);
+            ColorUtils.playSound(Sound.BLOCK_BEACON_DEACTIVATE, 1, 1, player);
             cancel();
             return;
         }
 
-        // Safely logout the player once timer is up
         int remainingSeconds = getRemainingSeconds();
         if (remainingSeconds <= 0) {
             finished = true;
@@ -79,7 +77,8 @@ public final class LogoutTask extends BukkitRunnable {
             for (String number : plugin.getConfig().getStringList("logout-command.broadcast-times")){
                 if(remainingSeconds == Integer.parseInt(number)){
                     String message = Messages.get("remaining-time").replace("{remaining}", String.valueOf(remainingSeconds));
-                    TitleAPI.sendTitle(player, message, ColorUtils.color("&4&l" + remainingSeconds), 0, 25, 0);
+                    ColorUtils.sendTitle(message, ColorUtils.color("&4&l" + remainingSeconds), 0, 25, 0, player);
+                    ColorUtils.playSound(Sound.BLOCK_COMPARATOR_CLICK, 1, 1, player);
                 }
             }
 
@@ -95,17 +94,13 @@ public final class LogoutTask extends BukkitRunnable {
     }
 
     public static void run(CombatVillager plugin, Player player) {
-        // Do nothing if player already has a task
         if (hasTask(player)) return;
 
-        // Calculate logout time
         long logoutTime = System.currentTimeMillis() + (plugin.getConfig().getInt("logout-command.time") * 1000);
 
-        // Run the task every few ticks for accuracy
         LogoutTask task = new LogoutTask(plugin, player, logoutTime);
         task.runTaskTimer(plugin, 0, 5);
 
-        // Cache the task
         tasks.put(player.getUniqueId(), task);
     }
 
@@ -127,13 +122,10 @@ public final class LogoutTask extends BukkitRunnable {
     }
 
     public static boolean cancel(Player player) {
-        // Do nothing if player has no logout task
         if (!hasTask(player)) return false;
 
-        // Cancel logout task
         Bukkit.getScheduler().cancelTask(tasks.get(player.getUniqueId()).getTaskId());
 
-        // Remove task early to prevent exploits
         tasks.remove(player.getUniqueId());
 
         return true;
@@ -143,11 +135,9 @@ public final class LogoutTask extends BukkitRunnable {
         Iterator<LogoutTask> iterator = tasks.values().iterator();
         BukkitScheduler s = Bukkit.getScheduler();
 
-        // Loop over each task
         while (iterator.hasNext()) {
             int taskId = iterator.next().getTaskId();
 
-            // Remove entry if task isn't running anymore
             if (!s.isQueued(taskId) && !s.isCurrentlyRunning(taskId)) {
                 iterator.remove();
             }

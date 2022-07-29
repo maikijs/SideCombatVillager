@@ -17,12 +17,12 @@ public class VillagerManager {
     public static HashMap<Villager, List<ItemStack>> contents = new HashMap();
     public static HashMap<Villager, Float> xps = new HashMap();
 
-    public static void addCombatVillager(UUID playerUUID, String playerName, Location spawnLoc, List<ItemStack> invItems, Float xp) {
+    public static void addCombatVillager(UUID playerUUID, String playerName, Location spawnLoc, List<ItemStack> invItems, Float xp, Double health) {
         Villager v = (Villager) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.VILLAGER);
         v.setCustomName(Messages.get("logger-name").replace("%player%", playerName));
         v.setCustomNameVisible(true);
-        v.setHealth(20);
-        Villager.Profession prof = Villager.Profession.PRIEST;
+        v.setHealth(health);
+        Villager.Profession prof = Villager.Profession.NONE;
         v.setProfession(prof);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, CombatVillager.getInstance().getConfig().getInt("logger.time-till-disappear")*20, 1000));
         villager.put(v, playerUUID);

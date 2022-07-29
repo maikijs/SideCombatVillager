@@ -12,7 +12,6 @@ import lv.side.network.Utils.ColorUtils;
 import lv.side.network.Utils.Messages;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Villager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -40,7 +39,7 @@ public class CombatVillager extends JavaPlugin {
     }
 
     public void onDisable() {
-        for (UUID uuid : VillagerManager.villager.values()){
+        for (UUID uuid : VillagerManager.villager.values()) {
             VillagerManager.getVillagerByUUID(uuid).remove();
         }
         instance = null;
@@ -50,9 +49,7 @@ public class CombatVillager extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("scv").setExecutor(new MainCMD(this));
-        if(getConfig().getBoolean("logout-command.enabled")) {
-            getCommand("logout").setExecutor(new LogoutCMD(this));
-        }
+        getCommand("logout").setExecutor(new LogoutCMD(this));
         ColorUtils.sendConsoleMessage("&a[SVC] Successfully loaded command(s).");
     }
 
@@ -67,6 +64,7 @@ public class CombatVillager extends JavaPlugin {
     public static CombatVillager getInstance() {
         return instance;
     }
+
     public LuckPerms getLuckPerms() {
         return this.luckPermsAPI;
     }

@@ -2,6 +2,9 @@ name: SideCombatVillager
 main: lv.side.network.CombatVillager
 author: Zurius
 version: 1.0
+api-version: 1.16
+depend:
+  - CombatLogX
 description: Combat Villager plugin made for side.lv network
 commands:
   scv:
