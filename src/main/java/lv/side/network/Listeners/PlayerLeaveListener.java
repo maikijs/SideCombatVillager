@@ -41,7 +41,6 @@ public class PlayerLeaveListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerPunish(PlayerPunishEvent event) {
-        Bukkit.broadcastMessage(event.getPunishReason().name());
 
         if (event.getPunishReason() == PlayerUntagEvent.UntagReason.QUIT || event.getPunishReason() == PlayerUntagEvent.UntagReason.KICK) {
 
