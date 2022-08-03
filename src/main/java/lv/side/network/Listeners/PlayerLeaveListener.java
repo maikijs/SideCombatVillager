@@ -2,20 +2,23 @@ package lv.side.network.Listeners;
 
 import com.SirBlobman.combatlogx.api.ICombatLogX;
 import com.SirBlobman.combatlogx.api.event.PlayerPunishEvent;
+import com.SirBlobman.combatlogx.api.event.PlayerUntagEvent;
 import com.SirBlobman.combatlogx.api.utility.ICombatManager;
 import lv.side.network.CombatVillager;
-import lv.side.network.Managers.VillagerTask;
 import lv.side.network.Managers.VillagerManager;
+import lv.side.network.Managers.VillagerTask;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 import static lv.side.network.Utils.ColorUtils.fillList;
 
@@ -36,12 +39,37 @@ public class PlayerLeaveListener implements Listener {
         logger = plugin.getConfig().getBoolean("logger.while-in-combat");
     }
 
-    @EventHandler(ignoreCancelled=true)
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerPunish(PlayerPunishEvent event) {
+        Bukkit.broadcastMessage(event.getPunishReason().name());
+
+        if (event.getPunishReason() == PlayerUntagEvent.UntagReason.QUIT || event.getPunishReason() == PlayerUntagEvent.UntagReason.KICK) {
+
+            if (!logger && isInCombat(event.getPlayer())) {
+                return;
+            }
+
+            if (event.getPlayer().hasPermission("SideAdmin.logout")) {
+                return;
+            }
+
+            if (worldcheck) {
+                if (!worlds.contains(event.getPlayer().getWorld().getName())) {
+                    return;
+                }
+            }
+
+            event.setCancelled(true);
+        }
+    }
+
+
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerLeave(PlayerQuitEvent e) {
         if (e.getPlayer().hasPermission("SideAdmin.logout")) {
             return;
         }
-        if(!logger && isInCombat(e.getPlayer())){
+        if (!logger && isInCombat(e.getPlayer())) {
             return;
         }
         if (e.getPlayer().isDead()) {
