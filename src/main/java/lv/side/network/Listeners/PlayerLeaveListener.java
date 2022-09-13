@@ -88,7 +88,7 @@ public class PlayerLeaveListener implements Listener {
 //        fillList(items, e.getPlayer().getInventory().getArmorContents());
         VillagerManager.addCombatVillager(u, e.getPlayer().getDisplayName(), e.getPlayer().getLocation(), items, e.getPlayer().getExp(), e.getPlayer().getHealth());
         name.put(u, e.getPlayer().getName());
-        Bukkit.getScheduler().runTaskLater(CombatVillager.getInstance(), new VillagerTask(u), delay * 20);
+        Bukkit.getScheduler().runTaskLater(CombatVillager.getInstance(), new VillagerTask(u), delay * 20L);
     }
 
     public boolean isInCombat(Player player) {

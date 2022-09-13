@@ -21,7 +21,11 @@ public class VillagerManager {
         Villager v = (Villager) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.VILLAGER);
         v.setCustomName(Messages.get("logger-name").replace("%player%", playerName));
         v.setCustomNameVisible(true);
-        v.setHealth(health);
+        if(health > 19) {
+            v.setHealth(20);
+        } else {
+            v.setHealth(health);
+        }
         Villager.Profession prof = Villager.Profession.NONE;
         v.setProfession(prof);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, CombatVillager.getInstance().getConfig().getInt("logger.time-till-disappear")*20, 1000));
