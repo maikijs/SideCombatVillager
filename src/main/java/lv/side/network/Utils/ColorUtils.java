@@ -23,7 +23,9 @@ public class ColorUtils {
     }
 
     public static void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut, Player player) {
-        player.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
+        Title t = new Title(title, subtitle, 0, 30, 0);
+        t.setTimingsToTicks();
+        t.send(player);
     }
 
     public static List<String> color(List<String> input) {

@@ -52,7 +52,7 @@ public class LogoutCMD implements CommandExecutor {
         logoutplayers.put(p.getUniqueId(), p);
         LogoutTask.run(plugin, p);
         ColorUtils.sendTitle("", Messages.get("title-logout-started"), 0, 25, 0, p);
-        ColorUtils.playSound(Sound.BLOCK_BEACON_ACTIVATE, 1, 1, p);
+        ColorUtils.playSound(Sound.BLAZE_DEATH, 1, 1, p);
         p.sendMessage(Messages.get("chat-logout-started"));
         return true;
     }

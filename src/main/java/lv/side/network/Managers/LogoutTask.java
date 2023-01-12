@@ -53,7 +53,7 @@ public final class LogoutTask extends BukkitRunnable {
         if (hasMoved(player)) {
             player.sendMessage(Messages.get("chat-logout-canceled"));
             ColorUtils.sendTitle("", Messages.get("title-logout-canceled"), 0, 25, 0, player);
-            ColorUtils.playSound(Sound.BLOCK_BEACON_DEACTIVATE, 1, 1, player);
+            ColorUtils.playSound(Sound.ANVIL_BREAK, 1, 1, player);
             cancel();
             return;
         }
@@ -78,7 +78,7 @@ public final class LogoutTask extends BukkitRunnable {
                 if(remainingSeconds == Integer.parseInt(number)){
                     String message = Messages.get("remaining-time").replace("{remaining}", String.valueOf(remainingSeconds));
                     ColorUtils.sendTitle(message, ColorUtils.color("&4&l" + remainingSeconds), 0, 25, 0, player);
-                    ColorUtils.playSound(Sound.BLOCK_COMPARATOR_CLICK, 1, 1, player);
+                    ColorUtils.playSound(Sound.BLAZE_HIT, 1, 1, player);
                 }
             }
 
