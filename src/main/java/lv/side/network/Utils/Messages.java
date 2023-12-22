@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class Messages {
@@ -18,7 +18,7 @@ public class Messages {
         for (String key : keys) {
             if (messages.isString(key)) {
                 String value = messages.getString(key);
-                value = ColorUtils.color(StringEscapeUtils.unescapeHtml(value));
+                value = ColorUtils.color(StringEscapeUtils.unescapeHtml4(value));
                 messageMap.put(key, value);
             }
         }
