@@ -55,7 +55,5 @@ public class VillagerListener implements Listener {
         if (!(e.getEntity() instanceof Villager)) return;
         final Entity m = e.getEntity();
         CombatVillager.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(CombatVillager.getInstance(), () -> m.setVelocity(new Vector(0, 0, 0)), 1L);
-
     }
-
 }

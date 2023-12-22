@@ -26,8 +26,9 @@ public class VillagerManager {
         } else {
             v.setHealth(health);
         }
-        Villager.Profession prof = Villager.Profession.NONE;
-        v.setProfession(prof);
+        v.setProfession(Villager.Profession.NONE);
+        v.setAI(false);
+        v.setCollidable(false);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, CombatVillager.getInstance().getConfig().getInt("logger.time-till-disappear")*20, 1000));
         villager.put(v, playerUUID);
         contents.put(v, invItems);
