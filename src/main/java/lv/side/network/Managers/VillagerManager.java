@@ -26,7 +26,7 @@ public class VillagerManager {
         } else {
             v.setHealth(health);
         }
-        v.setProfession(Villager.Profession.NONE);
+        v.setProfession(Villager.Profession.BUTCHER);
         v.setAI(false);
         v.setCollidable(false);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, CombatVillager.getInstance().getConfig().getInt("logger.time-till-disappear")*20, 1000));

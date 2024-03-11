@@ -1,9 +1,9 @@
 package lv.side.network.Listeners;
 
-import com.SirBlobman.combatlogx.api.ICombatLogX;
-import com.SirBlobman.combatlogx.api.event.PlayerPunishEvent;
-import com.SirBlobman.combatlogx.api.event.PlayerUntagEvent;
-import com.SirBlobman.combatlogx.api.utility.ICombatManager;
+import com.github.sirblobman.combatlogx.api.ICombatLogX;
+import com.github.sirblobman.combatlogx.api.event.PlayerPunishEvent;
+import com.github.sirblobman.combatlogx.api.manager.ICombatManager;
+import com.github.sirblobman.combatlogx.api.object.UntagReason;
 import lv.side.network.CombatVillager;
 import lv.side.network.Managers.VillagerManager;
 import lv.side.network.Managers.VillagerTask;
@@ -14,6 +14,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,21 +44,16 @@ public class PlayerLeaveListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerPunish(PlayerPunishEvent event) {
 
-        if (event.getPunishReason() == PlayerUntagEvent.UntagReason.QUIT || event.getPunishReason() == PlayerUntagEvent.UntagReason.KICK) {
+        if (event.getPunishReason() == UntagReason.QUIT || event.getPunishReason() == UntagReason.KICK) {
 
-            if (!logger && isInCombat(event.getPlayer())) {
+            if (!logger && isInCombat(event.getPlayer()))
                 return;
-            }
 
-            if (event.getPlayer().hasPermission("SideAdmin.logout")) {
+            if (event.getPlayer().hasPermission("SideAdmin.logout"))
                 return;
-            }
 
-            if (worldcheck) {
-                if (!worlds.contains(event.getPlayer().getWorld().getName())) {
-                    return;
-                }
-            }
+            if ((worldcheck && !worlds.contains(event.getPlayer().getWorld().getName())))
+                return;
 
             event.setCancelled(true);
         }
@@ -65,23 +62,21 @@ public class PlayerLeaveListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerLeave(PlayerQuitEvent e) {
-        if (e.getPlayer().hasPermission("SideAdmin.logout")) {
+        if (e.getPlayer().hasPermission("SideAdmin.logout"))
             return;
-        }
-        if (!logger && isInCombat(e.getPlayer())) {
+
+        if (!logger && isInCombat(e.getPlayer()))
             return;
-        }
-        if (e.getPlayer().isDead()) {
+
+        if (e.getPlayer().isDead())
             return;
-        }
-        if (e.getPlayer().getGameMode() != GameMode.SURVIVAL) {
+
+        if (e.getPlayer().getGameMode() != GameMode.SURVIVAL)
             return;
-        }
-        if (worldcheck) {
-            if (!(worlds.contains(e.getPlayer().getWorld().getName()))) {
-                return;
-            }
-        }
+
+        if (worldcheck && !(worlds.contains(e.getPlayer().getWorld().getName())))
+            return;
+
         UUID u = e.getPlayer().getUniqueId();
         final List<ItemStack> items = new ArrayList<>();
         fillList(items, e.getPlayer().getInventory().getContents());
@@ -92,9 +87,14 @@ public class PlayerLeaveListener implements Listener {
     }
 
     public boolean isInCombat(Player player) {
-        ICombatLogX plugin = (ICombatLogX) Bukkit.getPluginManager().getPlugin("CombatLogX");
+        ICombatLogX plugin = getAPI();
         ICombatManager combatManager = plugin.getCombatManager();
         return combatManager.isInCombat(player);
     }
 
+    public static ICombatLogX getAPI() {
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        Plugin plugin = pluginManager.getPlugin("CombatLogX");
+        return (ICombatLogX) plugin;
+    }
 }

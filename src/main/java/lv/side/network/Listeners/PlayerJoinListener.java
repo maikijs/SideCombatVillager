@@ -14,7 +14,6 @@ import java.util.UUID;
 
 public class PlayerJoinListener implements Listener {
 
-
     private CombatVillager plugin;
     private boolean xpsave;
     private String permission;
@@ -27,9 +26,9 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler(ignoreCancelled=true)
     public void onPlayerJoin(PlayerJoinEvent e) {
-        if (e.getPlayer().hasPermission("SideAdmin.logout")) {
+        if (e.getPlayer().hasPermission("SideAdmin.logout"))
             return;
-        }
+
         if (PlayerManager.wasKilled(e.getPlayer().getUniqueId())) {
             e.getPlayer().getInventory().clear();
             e.getPlayer().getInventory().setArmorContents(null);
@@ -42,9 +41,11 @@ public class PlayerJoinListener implements Listener {
             }
             PlayerManager.removeKilled(e.getPlayer().getUniqueId());
         }
-        if (!VillagerManager.hasVillagerByUUID(e.getPlayer().getUniqueId())) {
+
+
+        if (!VillagerManager.hasVillagerByUUID(e.getPlayer().getUniqueId()))
             return;
-        }
+
         Villager v = VillagerManager.getVillagerByUUID(e.getPlayer().getUniqueId());
         if (v == null) {
             return;

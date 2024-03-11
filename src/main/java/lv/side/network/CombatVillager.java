@@ -1,5 +1,6 @@
 package lv.side.network;
 
+import com.github.sirblobman.combatlogx.api.ICombatLogX;
 import lv.side.network.Commands.LogoutCMD;
 import lv.side.network.Commands.MainCMD;
 import lv.side.network.Listeners.PlayerDeathListener;
@@ -12,6 +13,8 @@ import lv.side.network.Utils.ColorUtils;
 import lv.side.network.Utils.Messages;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -68,5 +71,4 @@ public class CombatVillager extends JavaPlugin {
     public LuckPerms getLuckPerms() {
         return this.luckPermsAPI;
     }
-
 }
